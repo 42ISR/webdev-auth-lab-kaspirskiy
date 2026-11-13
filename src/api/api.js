@@ -10,10 +10,10 @@ const apiInstance = axios.create({
 })
 
 apiInstance.interceptors.request.use((config) => {
-    const { user } = useUserStore.getState()
+    const { session } = useUserStore.getState()
 
-    if (user?.token) {
-        config.headers.Authorization = `Bearer ${user.token}`
+    if (session?.token) {
+        config.headers.Authorization = `Bearer ${session.token}`
     }
 
     return config

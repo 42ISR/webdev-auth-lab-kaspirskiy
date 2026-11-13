@@ -1,21 +1,29 @@
-const ItemCard = () => {
+import { useState } from "react"
+import Button from "../components/Button"
+import Input from "../components/Input"
+import { Link, useNavigate } from "react-router-dom"
+import { api } from "../api/api"
+import { useUserStore } from "../store/useUserStore"
+
+const ItemCard = ({title, description, price, username, status, imageUrl, createdAt, highestBid, bidCount}) => {
+    
     return (
         <div className="item-card">
-            <img src="" class="item-image" />
+            <img class="item-image" src={imageUrl} />
             <div class="item-content">
-                <span class="status-badge status-active">Активное</span>
-                <h3 class="item-title">Название</h3>
-                <p class="item-description">Описание</p>
+                <span class="status-badge status-active">{status}</span>
+                <h3 class="item-title">{title}</h3>
+                <p class="item-description">{description}</p>
                 <div class="item-footer">
                     <div>
-                        <div class="item-price">5000 Р</div>
+                        <div class="item-price">{price}</div>
                         <div class="bid-info">
-                            5000 P
-                            <span class="bid-count">2</span>
+                            {highestBid}
+                            <span class="bid-count">{bidCount}</span>
                         </div>
                     </div>
                     <div class="item-meta">
-                        <span class="item-seller">Продавец: Пользователь</span>
+                        <span class="item-seller">{username}</span>
                     </div>
                 </div>
             </div>
