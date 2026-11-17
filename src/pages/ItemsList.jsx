@@ -9,6 +9,7 @@ const ItemsList = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
     const {items, getItems} = useItemStore()
+    const [stats, setStats] = useState(undefined)
     useEffect(() => {
         const load = async () => {
             setError(null)
@@ -23,6 +24,17 @@ const ItemsList = () => {
             }
         }
         load()
+
+        const loadStats = async () => {
+            try {
+                const res = await api.getStats()
+                setStats(res.data)
+            } catch (error) {
+                console.error(error)
+            }
+
+        }
+        loadStats()
     }, [])
 
     return (
@@ -33,19 +45,19 @@ const ItemsList = () => {
             {stats && (
             <div class="stats">
                 <div class="stat-item">
-                    <span class="stat-value">{status, totalItems}</span>
+                    <span class="stat-value">{stats?.totalItems}</span>
                     <span class="stat-label">Товаров</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-value">{status, totalBids}</span>
+                    <span class="stat-value">{stats?.totalBids}</span>
                     <span class="stat-label">Ставок</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-value">{total totalActive}</span>
+                    <span class="stat-value">{stats?.activeItems}</span>
                     <span class="stat-label">Активных</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-value">{averageItemPrice}₽</span>
+                    <span class="stat-value">{stats?.averageItemPrice}₽</span>
                     <span class="stat-label">Средняя цена</span>
                 </div>
             </div>
